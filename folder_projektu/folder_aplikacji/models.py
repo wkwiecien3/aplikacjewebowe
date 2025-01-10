@@ -2,6 +2,7 @@ from django.db import models
 
 # deklaracja statycznej listy wyboru do wykorzystania w klasie modelu
 MONTHS = models.IntegerChoices('Miesiace', 'Styczeń Luty Marzec Kwiecień Maj Czerwiec Lipiec Sierpień Wrzesień Październik Listopad Grudzień')
+PLCIE = models.IntegerChoices('PLEC', 'Kobieta Mężczyzna Inna')
 
 SHIRT_SIZES = (
         ('S', 'Small'),
@@ -38,9 +39,9 @@ class Osoba(models.Model):
 
     imie = models.CharField(max_length=40, blank = False, null = False)
     nazwisko = models.CharField(max_length=80, blank=False, null = False)
-    plec = models.CharField(max_length=1, choices=PLEC_CHOICES, default=[2][0])
+    plec = models.IntegerField(choices=PLCIE.choices, default=PLCIE.choices)
     stanowisko = models.ForeignKey('Stanowisko', on_delete = models.CASCADE)
-
+    data_dodania = models.DateField(auto_now_add = True, editable = False)
 
  
     def __str__(self):
