@@ -1,1 +1,3 @@
-# aplikacjewebowe
+# Projekt indywidualny
+Autor:
+* Weronika Kwiecień
