@@ -1,3 +1,3 @@
 # Projekt indywidualny
-Autor:
+## Autor:
 * Weronika Kwiecień
