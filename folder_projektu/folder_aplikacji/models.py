@@ -42,7 +42,7 @@ class Osoba(models.Model):
     plec = models.IntegerField(choices=PLCIE.choices, default=PLCIE.choices)
     stanowisko = models.ForeignKey('Stanowisko', on_delete = models.CASCADE)
     data_dodania = models.DateField(auto_now_add = True, editable = False)
-
+    
  
     def __str__(self):
         return f'{self.imie} {self.nazwisko}'
