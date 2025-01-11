@@ -25,7 +25,7 @@ class Person(models.Model):
     pseudonim = models.CharField(max_length=80, default="")
     shirt_size = models.CharField(max_length=1, choices=SHIRT_SIZES, default=SHIRT_SIZES[0][0])
     month_added = models.IntegerField(choices=MONTHS.choices, default=MONTHS.choices[0][0])
-    team = models.ForeignKey(Team, null=True, blank=True, on_delete=models.SET_NULL)
+    team = models.ForeignKey('Team', null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.name
@@ -46,6 +46,9 @@ class Osoba(models.Model):
  
     def __str__(self):
         return f'{self.imie} {self.nazwisko}'
+    
+    class Meta:
+        ordering = ["nazwisko"]
     
 class Stanowisko(models.Model):
     nazwa = models.CharField(max_length = 80, blank = False, null = False)
