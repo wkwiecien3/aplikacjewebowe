@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from .models import Osoba, Person, Stanowisko, Team
 from .serializers import OsobaSerializer, PersonSerializer, StanowiskoSerializer
 from rest_framework.decorators import APIView
+from django.http import HttpResponse
+import datetime
 
 
 # określamy dostępne metody żądania dla tego endpointu
@@ -142,3 +144,16 @@ class OsobaDetail(APIView):
             return Response(status = status.HTTP_404_NOT_FOUND)
         osoba.delete()
         return Response(status = status.HTTP_204_NO_CONTENT)
+    
+def welcome_view(request):
+    now = datetime.datetime.now()
+    html = f"""
+        <html><body>
+        Witaj użytkowniku! </br>
+        Aktualna data i czas na serwerze: {now}.
+        </body></html>"""
+    return HttpResponse(html)
+
+def person_list_html(request):
+    persons = Person.objects.all()
+    return HttpResponse(persons)
