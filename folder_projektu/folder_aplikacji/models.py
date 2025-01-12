@@ -22,7 +22,6 @@ class Team(models.Model):
 
 
 class Person(models.Model):
-
     name = models.CharField(max_length=60)
     pseudonim = models.CharField(max_length=80, default="")
     shirt_size = models.CharField(max_length=1, choices=SHIRT_SIZES, default=SHIRT_SIZES[0][0])
@@ -30,8 +29,8 @@ class Person(models.Model):
     team = models.ForeignKey('Team', null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return self.name
-    
+        return f"Person : {self.name}, dodana w {self.month_added}, o rozmiarze koszuli {self.shirt_size}." 
+ 
 class Osoba(models.Model):
     PLEC_CHOICES = (
         ("K", "kobieta"),
