@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from .models import Osoba, Person, Stanowisko, Team
 from .serializers import OsobaSerializer, PersonSerializer, StanowiskoSerializer
 from rest_framework.decorators import APIView
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 import datetime
 
 
@@ -156,4 +156,16 @@ def welcome_view(request):
 
 def person_list_html(request):
     persons = Person.objects.all()
-    return HttpResponse(persons)
+    return render(request,
+                  "folder_aplikacji/person/list.html",
+                  {'persons': persons})
+
+def person_detail_html(request, id):
+    try:
+            person = Person.objects.get(id=id)
+    except Person.DoesNotExist:
+            raise Http404("Obiekt Person o podanym id nie istnieje")
+
+    return render(request,
+                    "folder_aplikacji/person/detail.html",
+                    {'person': person})
