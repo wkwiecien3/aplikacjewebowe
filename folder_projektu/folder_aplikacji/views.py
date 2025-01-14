@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .models import Osoba, Person, Stanowisko, Team
 from .serializers import OsobaSerializer, PersonSerializer, StanowiskoSerializer
@@ -22,6 +24,8 @@ def person_list(request):
 
 
 @api_view(['GET'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def person_detail(request, pk):
 
     """
