@@ -26,6 +26,32 @@ def person_list(request):
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
+def osoba_list(request):
+    if request.method == "GET":
+        osoby = Osoba.objects.all()
+        serializer = OsobaSerializer(osoby, many = True)
+        return Response(serializer.data)
+    if request.method == "POST":
+        serializer = OsobaSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+api_view(['GET', 'DELETE'])
+def osoba_details(request, pk):
+    try:
+        osoba = Osoba.objects.get(pk=pk)
+    except Osoba.DoesNotExist:
+        return Response(status = status.HTTP_404_NOT_FOUND)
+    
+    if request.method == "GET":
+        serializer = OsobaSerializer(osoba)
+        return Response(serializer.data)
+    elif request.method == "DELETE":
+        osoba.delete()
+        return Response(status = status.HTTP_204_NO_CONTENT)
+
 def person_detail(request, pk):
 
     """
