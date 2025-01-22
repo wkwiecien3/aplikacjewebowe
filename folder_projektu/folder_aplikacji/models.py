@@ -31,7 +31,8 @@ class Person(models.Model):
 
     def __str__(self):
         return f"Person : {self.name}, dodana w {self.month_added}, o rozmiarze koszuli {self.shirt_size}.\n" 
-    
+
+
 class Osoba(models.Model):
     PLEC_CHOICES = (
         ("K", "Kobieta"),
@@ -51,6 +52,9 @@ class Osoba(models.Model):
     
     class Meta:
         ordering = ["nazwisko"]
+        permissions = [
+        ('view_person_other_owner', 'Pozwala zobaczyć modele Osoba innych właścicieli'),
+        ]
 
 class Stanowisko(models.Model):
     nazwa = models.CharField(max_length=80, blank = False, null = False)
